@@ -1,0 +1,13 @@
+import core.User
+
+model {
+	User user
+}
+
+json {
+	username user.username
+	id user.id
+	enabled user.enabled
+	products g.render( template: "products", collection: user.products, var: "product" )
+	roles g.render( template: "roles", collection: user.authorities , var: "role" )
+}

@@ -1,0 +1,37 @@
+#app {
+  height: 100vh;
+}
+#app .container-app{
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  grid-template-rows: 76px 1fr;
+  grid-template-areas: "sidebar header" "sidebar contentPage";
+  height: 100vh;
+}
+
+.sidebar {
+  grid-area: sidebar;
+}
+
+.header {
+  grid-area: header;
+}
+
+.content-page {
+  grid-area: contentPage;
+}
+.content-header {
+  background-color: #56575c;
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  align-items: center;
+  gap: 50px;
+  padding: 0 30px;
+}
+.theme--dark.content-header {
+  background-color: #56575c;
+}
+.theme--light.content-header {
+  background-color: var(--light);
+}

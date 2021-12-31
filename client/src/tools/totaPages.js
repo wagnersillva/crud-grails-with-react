@@ -1,0 +1,1 @@
+export const calculateTotalPage = ({ max, total }) =>   total%max ? (total-total%max) + max : total

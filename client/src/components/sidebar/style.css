@@ -1,0 +1,117 @@
+.sidebar {
+    width: 220px;
+    display: grid;
+    grid-template-rows: 130px 1fr;
+    grid-template-areas: "logo" "nav";
+    padding-top: 30px;
+    overflow: hidden;
+}
+
+.sidebar-logo {
+    grid-area: logo;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sidebar-logo img {
+    width: 100px;
+    height: 100px;
+} 
+
+.sidebar-nav {
+    grid-area: nav;
+    padding: 30px 0px 0 18px;
+}
+
+ul.sidebar-group-items{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.nav-item {
+    padding:8px 0 8px 20px;
+    border-radius: 8px 0px 0 8px;
+    cursor: pointer;
+    position: relative;
+}
+
+.nav-item a {
+    display: block;
+    color: var(--white);
+}
+.nav-item a:hover {
+    color: var(--gray);
+}
+
+.nav-item.nav-active::after,
+.nav-item.nav-active::before,
+.nav-item:hover::after,
+.nav-item:hover::before {
+    content: "";
+    position: absolute;
+    background-color: transparent;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    right: 0;
+}
+
+
+.nav-item a i{
+    font-size: 20px;
+}
+
+/* THEME DARK */
+.sidebar.theme--dark{
+    background-color: var(--black);
+}
+.theme--dark .nav-item.nav-active{
+/* .theme--dark .nav-item:is(:hover, :focus){ */
+    background-color: var(--gray-medium);
+}
+
+.theme--dark .nav-item.nav-active a{
+/* .theme--dark .nav-item:is(:hover, :focus) a { */
+    color: var(--light);
+}
+.theme--dark .nav-item.nav-active::before{
+/* .theme--dark .nav-item:hover::before { */
+    top: -30px;
+    box-shadow: 15px 15px 0px var(--gray-medium);
+}
+.theme--dark .nav-item.nav-active::after{
+/* .theme--dark .nav-item:hover::after{ */
+    top: 46px;
+    box-shadow: 15px -15px 0px var(--gray-medium);
+}
+
+/* THEME LIGHT */
+.sidebar.theme--light{
+    background-color: var(--blue-dark);
+}
+
+.theme--light .nav-item a{
+    color: var(--white);
+}
+
+.theme--light .nav-item.nav-active,
+.theme--light .nav-item:is(:hover, :focus){
+    background-color: var(--light);
+}
+
+.theme--light .nav-item.nav-active a,
+.theme--light .nav-item:is(:hover, :focus) a {
+    color: var(--blue-dark);
+}
+.theme--light .nav-item.nav-active::before,
+.theme--light .nav-item:hover::before {
+    top: -30px;
+    box-shadow: 15px 15px 0px var(--light);
+}
+.theme--light .nav-item.nav-active::after,
+.theme--light .nav-item:hover::after{
+    top: 46px;
+    box-shadow: 15px -15px 0px var(--light);
+}

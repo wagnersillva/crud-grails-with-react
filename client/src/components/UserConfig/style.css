@@ -1,0 +1,51 @@
+.user-config {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    position: relative;
+}
+.user-config-icon {
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.user-config-box {
+    position: absolute;
+    display: flex;
+    gap: 5px;
+    flex-direction: column;
+    top: 50px;
+    width: 130px;
+    padding: 14px;
+    border-radius: 8px;
+    height: max-content;
+    z-index: 999;
+    transition: .5s;
+    background-color: #fff;
+    border: 1px solid gray;
+    color: #333333;
+}
+.user-config-box a {
+    color: #333333;
+} 
+
+.user-config-box.--open {
+    right: 0;
+    opacity: 1;
+}
+.user-config-box.--close {
+    right: -190px;
+    opacity: 0;
+}
+.theme--dark .user-config-icon,
+.theme--dark .user-config-name {
+    color: #fff;
+}
+
+.theme--light .user-config-name {
+    color: #333333;
+}
+.theme--light .user-config-icon{
+    color: var(--blue-dark);
+}

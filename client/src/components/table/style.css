@@ -1,0 +1,54 @@
+.table-responsive {
+    border-radius: 8px;
+}
+
+.actons-table {
+    gap: 15px
+}
+
+.actons-table * {
+    cursor: pointer;
+}
+
+.theme--light table th {
+    background: var(--blue-dark);
+    color: var(--light);
+}
+
+.theme--light table tr:hover,
+.theme--light .table-striped tbody tr:nth-of-type(odd):hover {
+    background: #1b496529;
+}
+
+.theme--light table  {
+    border: 1px solid #ebeced;
+}
+
+.theme--dark table  {
+    border: 1px solid var(--dark);
+    color: var(--light);
+}
+
+.theme--dark table th {
+    background: var(--black);
+    color: var(--light);
+}
+
+.theme--dark table tr{
+    background: var(--dark);
+}
+.theme--dark .table-striped tbody tr:nth-of-type(odd) {
+    background: var(--gray);
+}
+
+.theme--dark table tr:hover,
+.theme--dark .table-striped tbody tr:nth-of-type(odd):hover {
+    background: #1b496529;
+}
+
+.theme--dark table  {
+    border: 1px solid var(--gray-medium);
+}
+.theme--dark .table th, .theme--dark .table td {
+    border-color: transparent;
+}

@@ -1,0 +1,7 @@
+import app.test.react.Products
+
+model {
+	Products products
+}
+
+json g.render(products, [resolveTemplate: false])

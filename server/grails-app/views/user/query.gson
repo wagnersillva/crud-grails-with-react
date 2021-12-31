@@ -1,0 +1,10 @@
+import core.User
+
+model {
+    User data
+}
+
+json {
+    data tmpl.user( data )
+}
+

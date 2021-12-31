@@ -1,0 +1,9 @@
+import app.test.react.Products
+
+model {
+	Products products
+}
+
+json {
+	data tmpl.products(products)
+}

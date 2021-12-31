@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "grails.profile",
+      "type": "java.lang.String",
+      "description": "Description for grails.profile."
+  }
+] }

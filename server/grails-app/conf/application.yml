@@ -1,0 +1,206 @@
+---
+grails:
+    profile: react
+    codegen:
+        defaultPackage: app.test.react
+    gorm:
+        reactor:
+            # Whether to translate GORM events into Reactor events
+            # Disabled by default for performance reasons
+            events: false
+info:
+    app:
+        name: '@info.app.name@'
+        version: '@info.app.version@'
+        grailsVersion: '@info.app.grailsVersion@'
+spring:
+    jmx:
+        unique-names: true
+    main:
+        banner-mode: "off"
+    groovy:
+        template:
+            check-template-location: false
+    devtools:
+        restart:
+            additional-exclude:
+                - '*.gsp'
+                - '**/*.gsp'
+                - '*.gson'
+                - '**/*.gson'
+                - 'logback.groovy'
+                - '*.properties'
+management:
+    endpoints:
+        enabled-by-default: false
+
+---
+grails:
+    mime:
+        disable:
+            accept:
+                header:
+                    userAgents:
+                        - Gecko
+                        - WebKit
+                        - Presto
+                        - Trident
+        types:
+            json:
+              - application/json
+              - text/json   
+            hal:
+              - application/hal+json
+              - application/hal+xml  
+            xml:
+              - text/xml
+              - application/xml                                 
+            atom: application/atom+xml
+            css: text/css
+            csv: text/csv
+            js: text/javascript
+            rss: application/rss+xml
+            text: text/plain
+            all: '*/*'            
+    urlmapping:
+        cache:
+            maxsize: 1000
+    controllers:
+        defaultScope: singleton
+    converters:
+        encoding: UTF-8
+
+---
+grails:
+    cors:
+        enabled: true
+
+---
+grails:
+    plugin:
+        springsecurity:
+            rest:
+                token:
+                    storage:
+                        jwt:
+                            secret: '9e548c06c9bc1fae358e0bb166097c47cafc9e8be05bca289409ec77e0836964'
+                            expiration: 7200
+            userLookup:
+                userDomainClassName: core.User
+                authorityJoinClassName: core.UserRole
+            authority:
+                className: core.Role
+            securityConfigType:  Requestmap
+            useSecurityEventListener: true
+            requestMap:
+                className: app.test.react.Requestmap
+            filterChain:
+                chainMap:
+                    -
+                        pattern: /assets/**
+                        filters: none
+                    -
+                        pattern: /**/js/**
+                        filters: none
+                    -
+                        pattern: /**/css/**
+                        filters: none
+                    -
+                        pattern: /**/images/**
+                        filters: none
+                    - # Stateless chain
+                        pattern: /api/**
+                        filters: JOINED_FILTERS,-anonymousAuthenticationFilter,-exceptionTranslationFilter,-authenticationProcessingFilter,-securityContextPersistenceFilter,-rememberMeAuthenticationFilter
+                    - # Traditional Chain
+                        pattern: /**
+                        filters: JOINED_FILTERS,-restTokenValidationFilter,-restExceptionTranslationFilter
+                controllerAnnotations:
+                    staticRules:
+                        -
+                            pattern: /
+                            access:
+                                - permitAll
+                        -
+                            pattern: /error
+                            access:
+                                - permitAll
+                        -
+                            pattern: /index
+                            access:
+                                - permitAll
+                        -
+                            pattern: /index.gsp
+                            access:
+                                - permitAll
+                        -
+                            pattern: /shutdown
+                            access:
+                                - permitAll
+                        -
+                            pattern: /assets/**
+                            access:
+                                - permitAll
+                        -
+                            pattern: /**/js/**
+                            access:
+                                - permitAll
+                        -
+                            pattern: /**/css/**
+                            access:
+                                - permitAll
+                        -
+                            pattern: /**/images/**
+                            access:
+                                - permitAll
+                        -
+                            pattern: /**/favicon.ico/**
+                            access:
+                                - permitAll
+
+
+---
+hibernate:
+    cache:
+        queries: false
+        use_second_level_cache: false
+        use_query_cache: false
+dataSource:
+    pooled: true
+    jmxExport: true
+    url: jdbc:mysql://localhost:3306/dbstock
+    driverClassName: com.mysql.cj.jdbc.Driver
+    dialect: org.hibernate.dialect.MySQL8Dialect
+    username: root
+    password: "root"
+
+environments:
+    development:
+        dataSource:
+            dbCreate: update
+            url: jdbc:mysql://localhost:3306/dbstock
+    test:
+        dataSource:
+            dbCreate: update
+            url: jdbc:h2:mem:testDb;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
+    production:
+        dataSource:
+            dbCreate: none
+            url: jdbc:h2:./prodDb;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
+            properties:
+                jmxEnabled: true
+                initialSize: 5
+                maxActive: 50
+                minIdle: 5
+                maxIdle: 25
+                maxWait: 10000
+                maxAge: 600000
+                timeBetweenEvictionRunsMillis: 5000
+                minEvictableIdleTimeMillis: 60000
+                validationQuery: SELECT 1
+                validationQueryTimeout: 3
+                validationInterval: 15000
+                testOnBorrow: true
+                testWhileIdle: true
+                testOnReturn: false
+                jdbcInterceptors: ConnectionState
+                defaultTransactionIsolation: 2 # TRANSACTION_READ_COMMITTED

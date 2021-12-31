@@ -1,0 +1,21 @@
+.input-search input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.theme--light .input-search input {
+    background-color: var(--light);
+}
+.theme--light .input-search input:focus {
+    border-color: var(--blue-dark);
+}
+
+.theme--dark .input-search input {
+    background-color: var(--gray);
+    border-color: var(--gray);
+    color: var(--light);
+}
+.theme--dark .input-search input:focus {
+    box-shadow: 0 0 0.5em  var(--gray);
+}

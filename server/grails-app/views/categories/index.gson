@@ -1,0 +1,14 @@
+import app.test.react.Categories
+
+model {
+	List<Categories> categories
+	Integer total
+	Integer totalPages
+}
+
+json {
+	data tmpl.categories("categories", categories)
+	total total ?: null
+	totalPages totalPages ?: null
+}
+

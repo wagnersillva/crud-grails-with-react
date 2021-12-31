@@ -1,0 +1,9 @@
+import app.test.react.Categories
+
+model {
+	Categories categories
+}
+
+json {
+	data  tmpl.categories(categories)
+}

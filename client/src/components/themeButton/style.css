@@ -1,0 +1,40 @@
+.theme--dark {
+    background-color: var(--gray-medium);
+}
+.theme--light {
+    background-color: var(--light);
+}
+
+
+.btn-theme {
+    position: relative;
+    width: 54px;
+    height: 28px;
+    border-radius: 60px;
+    transition: ease .3s;
+    cursor: pointer;
+}
+
+.btn-theme::before {
+    position: absolute;
+    content: "";
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    transition: ease .3s;
+    top: 4px;
+    background: var(--light);
+}
+
+.theme--dark .btn-theme{
+    background: var(--dark);
+}
+.theme--light .btn-theme {
+    background: var(--blue-dark);
+}
+.theme--dark .btn-theme.btn-theme::before {
+    right: 4px;
+}
+.theme--light .btn-theme.btn-theme::before {
+    right: 30px;
+}

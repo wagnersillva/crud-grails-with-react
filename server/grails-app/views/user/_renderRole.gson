@@ -1,0 +1,9 @@
+import core.Rule
+
+model {
+  Rule role
+}
+
+json {
+    role role.authority
+}

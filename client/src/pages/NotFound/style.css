@@ -1,0 +1,15 @@
+.ant-result-title {
+    font-size: 70px !important;
+    font-weight: 900 !important;
+}
+.ant-result-subtitle {
+    font-size:  15px !important;
+}
+.theme--dark .ant-result-title,
+.theme--dark .ant-result-subtitle{
+    color: rgb(217 217 217 / 85%) !important;
+}
+.theme--light .ant-result-title,
+.theme--light .ant-result-subtitle{
+    color: rgb(27 73 101) !important;
+}

@@ -1,0 +1,69 @@
+.UiButton {
+    padding: 8px 50px;
+    border-radius: 8px;
+    border-width: 2px;
+    border-style: solid;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 10px;
+    width: max-content;
+    transition: .2s;
+    background: transparent;
+}
+
+.UiButton:hover {
+    cursor: pointer;
+}
+
+/*  theme light colors  */
+
+.UiButton.success, 
+.theme--light .UiButton.success {
+    border-color: var(--success);
+    color: var(--success);
+}
+.UiButton.success:hover,
+.theme--light .UiButton.success:hover {
+    background: var(--success);
+    color: var(--light);
+}
+
+.theme--light .UiButton.warning {
+    background: var(--warning);
+    color: var(--light);
+}
+
+.UiButton.danger, 
+.theme--light .UiButton.danger {
+    background: var(--danger);
+    border-color: var(--danger);
+    color: var(--light);
+}
+.UiButton.danger:hover, 
+.theme--light .UiButton.danger:hover {
+    background: #e35361;
+    border-color: #e35361;
+}
+
+/*  theme dark colors  */
+
+.theme--dark .UiButton.success {
+    border-color:var(--success-light);
+    color: var(--success-light);
+}
+.theme--dark .UiButton.success:hover {
+    background: var(--success);
+    border-color: var(--success);
+    color: var(--light);
+}
+
+.theme--dark .UiButton.warning {
+    background: var(--warning);
+    color: var(--light);
+}
+
+.theme--dark .UiButton.danger {
+    background: var(--danger);
+    color: var(--light);
+}

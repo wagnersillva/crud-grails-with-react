@@ -1,0 +1,4 @@
+table.top-ranking, table.top-ranking tr th  {
+    border-top: none !important;
+    background: transparent;
+}

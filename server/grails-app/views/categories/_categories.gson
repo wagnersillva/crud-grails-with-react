@@ -1,0 +1,11 @@
+import app.test.react.Categories
+
+model {
+	Categories categories
+}
+
+json {
+	name categories.name
+	id categories.id
+	products g.render( template: "products", collection: categories.products, var: "product" )
+}

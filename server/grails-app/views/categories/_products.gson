@@ -1,0 +1,10 @@
+import app.test.react.Products
+
+model {
+	Products product
+}
+
+json {
+	name product.name
+	id product.id
+}

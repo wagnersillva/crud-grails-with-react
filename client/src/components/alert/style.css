@@ -1,0 +1,11 @@
+.ant-notification {
+    z-index: 2000 !important;
+}
+.alert-notification {
+    border-radius: 10px !important;
+    border-left: 4px solid;
+}
+
+.ant-notification-notice-success { border-left-color: #52c41a !important; }
+.ant-notification-notice-error { border-left-color: #ff4d4f !important; }
+.ant-notification-notice-warning { border-left-color: #faad14 !important; }

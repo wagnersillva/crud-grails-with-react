@@ -1,0 +1,17 @@
+import core.User
+
+model {
+	Iterable<User> data
+	Integer total
+	Integer max
+	Integer offset
+	Integer totalPages
+}
+
+json {
+	hal.paginate( User, total, offset , max )
+	data tmpl.user( data )
+	total total?: null
+	totalPages totalPages
+}
+

@@ -1,0 +1,12 @@
+.content-page {
+    padding: 0 30px;
+}
+.content-page .container{
+    max-width: 100%;
+}
+.theme--dark.content-page {
+    background-color: var(--gray-medium);
+}
+.theme--light.content-page {
+    background-color: var(--light);
+}

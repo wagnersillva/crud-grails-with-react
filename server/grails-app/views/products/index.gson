@@ -1,0 +1,15 @@
+import app.test.react.Products
+
+
+model {
+	Iterable<Products> data
+	Integer total
+	Integer totalPages
+}
+
+json {
+	data tmpl.products(data ?:  [] )
+	total total ?: null
+	totalPages totalPages ?: null
+}
+
