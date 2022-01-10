@@ -1,7 +1,6 @@
 import { API } from '../server';
 import {SERVER_URL} from '../../config';
 import Alert from '../../components/alert';
-import ErrorBoundary from 'antd/lib/alert/ErrorBoundary';
 
 const clearAuth = () => {
   delete localStorage.auth

@@ -30,11 +30,12 @@ export const ModalEdit = ({ show, onHide, props, contextTitle }) => {
         if(props.service) setUrlController(props.service)
         if(props.allColumns) {
             const fields = []
+            // eslint-disable-next-line
             props.allColumns && props.allColumns.map (column => {
                 const { title, label, classNameInput, inputNumber, inputType, list, required } = column
                 if(column !== "actions"){
                     fields.push({
-                        name: title,
+                        title: title,
                         label: label || title,
                         required: required,
                         classNameAreaInput: classNameInput || '',
@@ -63,52 +64,48 @@ export const ModalEdit = ({ show, onHide, props, contextTitle }) => {
     const renderBody = (onCancel) => {
           return (
             <Form className="row" onSubmit={(e) =>{ save(e) }} >
-                {fields && fields.map(fieldItem => {
-                    const { type, options, classNameAreaInput, label, name, required } = fieldItem
-                    if(name !== "actions") {
+                { fields && fields.map(fieldItem => {
+                    const { type, options, classNameAreaInput, label, title, required } = fieldItem
+                    if(title !== "actions") {
                         if(type === "numberInt" || type === "numberFloat"){
                             return (
                                 <Form.Group as={Col} className={classNameAreaInput || ''}>
-                                    <UIInput classNameInput={`form-control ${required ? 'is-require':''} input-control-validate input-control-${name}`} value={entity ? entity[name] : ''} placeholder={`Insert the ${name}`} id={type} onChange={onChangeNumber} name={name} label={`${label}${required ? '*':''}`} type={type}/>
-                                    <span className={`${required ? 'is-require':''} label-control-validate label-control-${name}`}> {name} is required </span>
+                                    <UIInput classNameInput={`form-control ${required ? 'is-require':''} input-control-validate input-control-${title}`} value={entity ? entity[title] : ''} placeholder={`Insert the ${title}`} id={type} onChange={onChangeNumber} name={title} label={`${label}${required ? '*':''}`} type={type}/>
+                                    <span className={`${required ? 'is-require':''} label-control-validate label-control-${title}`}> {title} is required </span>
                                 </Form.Group>
                             )   
                         } else if(type === "select"){
                             return (
-                                <Form.Group as={Col} className={classNameAreaInput || ''}>{label && <Form.Label className="mb-2">{label}</Form.Label>}
-                                    <Form.Select onChange={onChangeSelect} name={name} className={`form-control ${required ? 'is-require':''} input-control-validate input-control-${name}`}>
-                                        <option selected={ !entity || !entity[name] && true } disabled>
-                                            Select {name}
+                                <Form.Group as={Col} className={classNameAreaInput || ''}>
+                                    {label && <Form.Label className="mb-2">{label}</Form.Label>}
+                                    <Form.Select onChange={title === "enabled" ? onChangeSelectEnabled : onChangeSelect } name={title} className={`form-control ${required ? 'is-require':''} input-control-validate input-control-${title}`}>
+                                        <option selected={ !entity && true }>
+                                            Select {title}
                                         </option>
                                         {options && options.map(itemList => {
-                                            return (
-                                                <option  value={itemList.id} selected={ entity && entity[name] && entity[name][0].name === itemList.id }  >
-                                                    {itemList.name}
-                                                </option>
-                                            )
+                                            if(title === "enabled"){
+                                                return (
+                                                    <option  value={itemList.id} selected={ entity &&  entity[title] === itemList.id || entity[title] === "active" }>
+                                                        {itemList.name}
+                                                    </option>
+                                                )
+                                            } else {
+                                                return (
+                                                    <option  value={itemList.id} selected={ entity && entity[title][0].name === itemList.id }>
+                                                        {itemList.name}
+                                                    </option>
+                                                )
+                                            }
                                         })}
                                     </Form.Select>
-                                    <span className={`${required ? 'is-require':''} label-control-validate label-control-${name}`}> {name} is required </span>
-                                </Form.Group>
-                            )   
-                        } else if(type === "radio"){
-                            return (
-                                <Form.Group as={Col} className={classNameAreaInput || ''}>{label && <Form.Label className="mb-2">{label}</Form.Label>}
-                                    {options && options.map( option => {
-                                        return (
-                                           <>
-                                            <UIInput  classNameInput={`form-control ${required ? 'is-require':''} input-control-validate input-control-${name}`}  onChange={onChange} checked={ entity && ( `${entity[name]}` == `${option.id}` )  } value={option.id} name={name} label={`${option.name}`} type={type}/>
-                                           </>
-                                        )
-                                    })}
-                                    <span className={`${required ? 'is-require':''} label-control-validate label-control-${name}`}> {name} is required </span>
+                                    <span className={`${required ? 'is-require':''} label-control-validate label-control-${title}`}> {title} is required </span>
                                 </Form.Group>
                             )   
                         } else {
                             return (
                                 <Form.Group as={Col} className={classNameAreaInput || ''}>
-                                    <UIInput pattern={ name === "username" ? "([aA-zZ]+)" : null } classNameInput={`form-control ${required ? 'is-require':''} input-control-validate input-control-${name}`}  value={entity ? entity[name] : ''} placeholder={`Insert the ${name}`} onChange={onChange} name={name} label={`${label}${required ? '*':''}`} type={type}/>
-                                    <span className={`${required ? 'is-require':''} label-control-validate  label-control-${name}`}> {name} is required </span>
+                                    <UIInput pattern={ title === "username" ? "([aA-zZ]+)" : null } classNameInput={`form-control ${required ? 'is-require':''} input-control-validate input-control-${title}`}  value={entity ? entity[title] : ''} placeholder={`Insert the ${title}`} onChange={onChange} name={title} label={`${label}${required ? '*':''}`} type={type}/>
+                                    <span className={`${required ? 'is-require':''} label-control-validate  label-control-${title}`}> {title} is required </span>
                                 </Form.Group>
                             )   
                         }
@@ -126,8 +123,16 @@ export const ModalEdit = ({ show, onHide, props, contextTitle }) => {
 
     const onChangeSelect = (e) => {
         const newEntity = {...entity}
-        const { value, options, name } = e.target
+        const {  options, name } = e.target
         newEntity[name] = [{ name: options[options.selectedIndex].label }]
+        setEntity(newEntity)
+    }
+
+    const onChangeSelectEnabled = (e) => {
+        const newEntity = {...entity}
+        const {  options, name } = e.target
+        newEntity[name] = options[options.selectedIndex].label
+        console.log(newEntity)
         setEntity(newEntity)
     }
 
@@ -160,10 +165,10 @@ export const ModalEdit = ({ show, onHide, props, contextTitle }) => {
             errors.push("error")
         } else {
              fields && fields.map( field => {
-                const input = window.document.querySelector(`.input-control-${field.name}.is-require`)
-                const label = window.document.querySelector(`.label-control-${field.name}.is-require`)
-                if( entity && field.name !== "actions" && field.required && !entity[field.name]) {
-                    errors.push(field.name)
+                const input = window.document.querySelector(`.input-control-${field.title}.is-require`)
+                const label = window.document.querySelector(`.label-control-${field.title}.is-require`)
+                if( entity && field.title !== "actions" && field.required && !entity[field.title]) {
+                    errors.push(field.title)
                     input && input.classList.add("input-invalid")
                     label && label.classList.add("input-invalid")
                 } else {
@@ -185,20 +190,19 @@ export const ModalEdit = ({ show, onHide, props, contextTitle }) => {
             const body = {
                 user: {
                     username: entity.username,
-                    enabled: entity.enabled === "true" || entity.enabled === true
+                    enabled: entity.enabled === "active" ? true : false
                 },
                 role:{
-                    authority: ENUM_ROLES[entity.roles[0].name]
+                    authority: entity.roles[0].name ? ENUM_ROLES[entity.roles[0].name] : "ROLE_USER"
                 }
             }
-            // entity.enabled = entity.enabled === "true" || entity.enabled === true 
-            // entity.roles = [{ name: ENUM_ROLES[entity.roles[0].name] }]
-            console.log(body)
             if(entity.id){
                 API.put({url: `${urlController}/update`, id: entity.id, body: body })
                 .then(() => {
                     Alert({ type: "success"})
-                    setTimeout(window.location.reload(), 5000)
+                    setTimeout(()=>{
+                        window.location.reload()
+                    }, 2750)
                 })
                 .catch(e => Alert({ type: 'error', message: e.message }) )
             } else {
@@ -206,7 +210,9 @@ export const ModalEdit = ({ show, onHide, props, contextTitle }) => {
                  API.post({url: `${urlController}/save`, body: body })
                 .then(() => {
                     Alert({ type: "success" })
-                    setTimeout(window.location.reload(), 5000)
+                    setTimeout(()=>{
+                        window.location.reload()
+                    }, 2750)
                 })
                 .catch(e => Alert({ type: 'error', message: e.message }) )
             }

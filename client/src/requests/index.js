@@ -4,24 +4,20 @@ export default  function request ({ url, id = null,  method, headers =  { "conte
     switch (method) {
         case "GET":
                 return getRequest( { url, id, headers, method });
-            break
         case "POST":
             return postRequest({ url, headers, method, body });
-            break
         case "PUT":
             if(id){
                 return postRequest({ url, id, headers, method, body });
             } else {
                  return  { succes: false, message: "id cannot be empty" };
             }
-            break
         case "DELETE":
             if(id){
                 return deleteRequest( { url, headers, id });
             } else {
                 return  { succes: false, message: "id cannot be empty" };
             }
-            break
         default:
            return  { succes: false, message: "Method not found" };
     }

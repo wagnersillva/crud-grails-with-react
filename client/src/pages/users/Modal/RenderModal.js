@@ -1,7 +1,7 @@
 import React from "react"
 import { ModalDelete } from "../../../components/modal/ModalDelete"
 import { ModalEdit } from "./ModalEdit"
-import { ModalView } from "../../../components/modal/ModalView"
+import { ModalView } from "./ModalView"
 
 export const RenderModal = ({show, onHide, props,contextTitle}) => {
     return (

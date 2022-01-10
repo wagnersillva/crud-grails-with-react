@@ -24,7 +24,7 @@
   background-color: #56575c;
   display: flex;
   flex-direction: row;
-  justify-content: end;
+  justify-content: flex-end;
   align-items: center;
   gap: 50px;
   padding: 0 30px;

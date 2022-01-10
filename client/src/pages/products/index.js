@@ -4,7 +4,6 @@ import UIButton from '../../components/button';
 import { API } from '../../services/server'
 import { columns } from './configs';
 import { Space, Table } from 'antd';
-import { calculateTotalPage } from '../../tools/totaPages';
 import { FaEdit, FaEye, FaTrash } from 'react-icons/fa';
 import { RenderModal } from './Modal/RenderModal';
 
@@ -16,7 +15,7 @@ export default function Products() {
     const [categories, setCategories] = useState([]);
     const [getColumns, setColumns] = useState();
     const [offset, setOffset] = useState(0);
-    const [max, setMax] = useState(5);
+    const [max] = useState(5);
     const [queryParam, setQueryParam] = useState();
     const [totalPages, setTotalPages] = useState();
     const [urlController] = useState(`products`);
@@ -46,6 +45,7 @@ export default function Products() {
             )      
         }
         setColumns([...columns, actions])
+        // eslint-disable-next-line
     }, []);
 
     const setData = ({max, offset, query }) => {
@@ -59,9 +59,11 @@ export default function Products() {
                 API.get({ url: "categories"  }).then(e => {
                     if(e.success){
                         const categories = e.data.data;
+                        // eslint-disable-next-line
                         products.map( product => {
                             product.category = categories.find(category => category.id === product.category.id);
                         })
+                        // eslint-disable-next-line
                         columns.map( column => {
                             if(column.title === "category") { column.list = categories; }
                         })

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { columns } from "./config"
-import { calculateTotalPage } from '../../tools/totaPages';
 import { API } from "../../services/server"
 import { UIInput } from "../../components/Input";
 import UIButton from "../../components/button";
@@ -15,7 +14,7 @@ export default function Users (){
     const [users, setUsers] = useState(null);
     const [offset, setOffset] = useState(0);
     const [queryParam, setQueryParam] = useState();
-    const [max, setMax] = useState(5);
+    const [max] = useState(5);
     const [totalPages, setTotalPages] = useState();
     const [urlController] = useState(`user`);
 
@@ -43,10 +42,10 @@ export default function Users (){
             )      
         }
         setColumns([...columns, actions])
+        // eslint-disable-next-line
     }, [])
 
     const setData = ({max, offset, query }) => {
-        const model = []
         const url = `${urlController}?${ max ? `max=${max}`:""}${ offset ? `&offset=${offset*max}`:""}${ query ? `${query}`:""}`
         API.get({ url })
         .then(e => { 

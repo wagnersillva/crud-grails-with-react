@@ -5,7 +5,6 @@ import { Auth } from "../../services/security/auth";
 import { API } from "../../services/server";
 import Alert from "../alert";
 import UIButton from "../button";
-import UIForm from "../form";
 import { UIInput } from "../Input";
 import CustomModal from "../modal";
 
@@ -56,7 +55,7 @@ export const ModalEdit = ({ show, onHide, props, contextTitle }) => {
     }
     const renderBody = (onCancel) => {
           return (
-            <Form className="row" onSubmit={(e) =>{ save(e) }} >
+            <Form className="row" onSubmit={(e) =>{ save(e) }} > 
                 {fields && fields.map(fieldItem => {
                     const { type, options, classNameAreaInput, label, name, required } = fieldItem
                     if(name !== "actions") {
@@ -69,7 +68,8 @@ export const ModalEdit = ({ show, onHide, props, contextTitle }) => {
                             )   
                         } else if(type === "select"){
                             return (
-                                <Form.Group as={Col} className={classNameAreaInput || ''}>{label && <Form.Label className="mb-2">{label}</Form.Label>}
+                                <Form.Group as={Col} className={classNameAreaInput || ''}>
+                                    {label && <Form.Label className="mb-2">{label}</Form.Label>}
                                     <Form.Select onChange={onChangeSelect} name={name} className={`form-control ${required ? 'is-require':''} input-control-validate input-control-${name}`}>
                                         <option selected={ !entity || !entity[name] && true } disabled>
                                             Select {name}
@@ -165,7 +165,9 @@ export const ModalEdit = ({ show, onHide, props, contextTitle }) => {
                 API.put({url: `${urlController}/update`, id: entity.id, body: entity })
                 .then(() => {
                     Alert({ type: "success"})
-                    setTimeout(window.location.reload(), 5000)
+                    setTimeout(()=>{
+                        window.location.reload()
+                    }, 5000)
                 })
                 .catch(e => Alert({ type: 'error', message: e.message }) )
             } else {
@@ -173,7 +175,9 @@ export const ModalEdit = ({ show, onHide, props, contextTitle }) => {
                  API.post({url: `${urlController}/save`, body: entity })
                 .then(() => {
                     Alert({ type: "success" })
-                    setTimeout(window.location.reload(), 5000)
+                    setTimeout(()=>{
+                        window.location.reload()
+                    }, 5000)
                 })
                 .catch(e => Alert({ type: 'error', message: e.message }) )
             }

@@ -14,6 +14,7 @@ const listRoles = [
 export const columns = [
     {
         title: "username",
+        name: "username",
         dataIndex: "username",
         inputType: "text",
         classNameInput:"col-6 mb-4",
@@ -23,12 +24,12 @@ export const columns = [
     },
     {
         title: "roles",
+        name: "roles",
         inputType: "select",
         classNameInput:"col-6 mb-4",
         width: 100,
         key: "roles",
         list: listRoles,
-        required: true,
         dataIndex: "roles",
         render: (Roles) => (
             <Space>
@@ -38,13 +39,13 @@ export const columns = [
     },
     {
         title: "enabled",
+        name: "enabled",
         label: "status",
-        inputType: "radio",
+        inputType: "select",
         classNameInput:"col-6 mb-4",
         width: 100,
         key: "enabled",
         list: [{ id: true, name: "active" }, { id: false, name: "inactive" }],
-        required: true,
         dataIndex: "enabled",
         render: tag => (
             <Tag style={{ borderRadius: "4px", marginLeft: "4px" }} color={tag ? 'green' : 'volcano'} key={tag}>

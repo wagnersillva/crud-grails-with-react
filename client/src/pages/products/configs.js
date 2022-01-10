@@ -53,7 +53,7 @@ export const columns = [
         render: (data) =>(
             <>
                 <Space size="middle">
-                    <a>{data.category ? data.category.name :''}</a>
+                    <span>{data.category ? data.category.name :''}</span>
                 </Space>
             </>
         )
