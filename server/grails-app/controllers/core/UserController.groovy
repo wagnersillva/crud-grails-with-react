@@ -47,9 +47,9 @@ class UserController {
 
     def query() {
 
-        def username = params.username
+        def username = "%"+params.username+"%"
 
-        def user = User.findByUsername(username)
+        def user = User.findAllByUsernameIlike(username)
 
         respond data: user
 
@@ -142,12 +142,20 @@ class UserController {
     }
 
     @Transactional
-    def delete(Long id) {
-        if (id == null || userService.delete(id) == null) {
+    def delete() {
+        Long id = Long.parseLong( params.id?: null )
+        if(id){
+            try {
+                User user = User.findById(id)
+                UserRule.findByUser(user).delete()
+                user.delete()
+                render "User Deleted"
+            } catch(e) {
+                render Error: e
+            }
+        } else {
             render status: NOT_FOUND
-            return
         }
 
-        render status: NO_CONTENT
     }
 }

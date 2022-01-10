@@ -1,7 +1,8 @@
 import core.User
 
 model {
-    User data
+//    User data
+    Iterable<User> data
 }
 
 json {
