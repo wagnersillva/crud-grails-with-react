@@ -23,9 +23,9 @@ export default function UserConfig (props) {
                     <FaIcons.FaUserCircle />
                 </span>
                 <div  className={`user-config-box ${configBox ? "--open" : "--close"}`}>
-                    <a href={"/config"}>
+                    {/* <a href={"/config"}>
                         Config
-                    </a>
+                    </a> */}
                     <a href={"/logout"}>
                         Logout
                     </a>

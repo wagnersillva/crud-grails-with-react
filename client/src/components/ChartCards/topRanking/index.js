@@ -17,7 +17,7 @@ export const TopRanking = ({ data }) => {
                     {data.map( (item, index) => {
                         return (
                             <tr className="item-ranking">
-                                <td>{`${index}°`}</td>
+                                <td>{`${index+1}°`}</td>
                                 <td>{item.name}</td>
                                 <td> {item.value}</td>
                             </tr>

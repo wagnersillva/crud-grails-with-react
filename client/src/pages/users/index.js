@@ -45,11 +45,12 @@ export default function Users (){
         // eslint-disable-next-line
     }, [])
 
-    const setData = ({max, offset, query }) => {
-        const url = `${urlController}?${ max ? `max=${max}`:""}${ offset ? `&offset=${offset*max}`:""}${ query ? `${query}`:""}`
-        API.get({ url })
+    const setData = ({max, offset, query, url }) => {
+        const prev_url = `${urlController}?${ max ? `max=${max}`:""}${ offset ? `&offset=${offset*max}`:""}${ query ? `${query}`:""}`
+        API.get({ url: url || prev_url })
         .then(e => { 
-            const users = e.success ? e.data.data : null;
+            let users = e.success ? e.data.data : null;
+            if(!Array.isArray(users)) users = [users];
             if(e.success) {
                 setTotalPages(e.data.totalPages)
                 setUsers(users)
@@ -61,9 +62,10 @@ export default function Users (){
 
 
     const onChangeSearch = (e) => {
-        const query = `name=${e.target.value}`
+        const query = e.target.value ? `query?username=${e.target.value}` : ''
+        const url = `${urlController}/${query}`
         setQueryParam(query)
-        setData({ query })
+        setData({ url })
     }
 
     const onChangeTable = (pagination, filters, sorter, extra) => {
